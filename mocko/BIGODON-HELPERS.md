@@ -99,10 +99,29 @@ All date helpers work with: timestamp (ms), `Date` object, or ISO string with ex
 
 | Helper | Signature | Description |
 |--------|-----------|-------------|
-| `date` / `toDate` | `date val` | Parse to Date object |
-| `dateNow` / `nowDate` | `dateNow` | Current date/time |
-| `dateAdd` / `addTime` | `dateAdd date amount unit` | Add time (units: `ms`, `s`, `min`, `h`, `day`, `week`, `month`, `year`) |
-| `dateSub` / `subTime` | `dateSub date amount unit` | Subtract time |
-| `dateIso` / `toIsoDate` | `dateIso date` | ISO 8601 string |
-| `dateTimestamp` / `toTimestamp` | `dateTimestamp date` | Unix timestamp in ms |
+| `date` | `date val` | Parse to Date object |
+| `now` | `now` | Current date/time |
+| `dateAdd` | `dateAdd date amount unit` | Add time (units: `ms`, `s`, `min`, `h`, `day`, `week`, `month`, `year`) |
+| `dateSub` | `dateSub date amount unit` | Subtract time |
+| `dateIso` | `dateIso date` | ISO 8601 string |
+| `dateTimestamp` | `dateTimestamp date` | Unix timestamp in ms |
 | `dateDiff` | `dateDiff date1 date2 [unit]` | Difference (default ms, supports up to `week`; `month`/`year` not supported) |
+
+### Date Examples
+
+```hbs
+Created: {{dateIso (date createdAt)}}
+Expires: {{dateIso (dateAdd (date createdAt) ttlDays "day")}}
+Reminder: {{dateIso (dateSub (dateAdd (date createdAt) ttlDays "day") 2 "h")}}
+Age in days: {{dateDiff (now) (date createdAt) "day"}}
+Created timestamp: {{dateTimestamp (date createdAt)}}
+```
+
+With context:
+
+```json
+{
+  "createdAt": "2024-01-01T00:00:00.000Z",
+  "ttlDays": 7
+}
+```
