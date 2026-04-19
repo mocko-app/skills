@@ -10,7 +10,7 @@ Mocko is a dynamic HTTP mocking tool. Mocks are defined in `.hcl` files and resp
 ## CLI
 
 ```
-Usage: mocko [options] <path to mocks folder>
+Usage: mocko [options] [path to mocks folder]
 Example: mocko -p 4000 mocks
 
 Options:
@@ -21,9 +21,9 @@ Options:
   -p, --port       Port to serve the mocks (8080)
   -u, --url        URL to proxy requests when no mock is defined
   -t, --timeout    Max time to wait for a response from the proxied URL in millis (30000)
-  --ui             Enables UI mode on the default UI port (6625)
+  --no-ui          Disables the control panel UI
   -r, --redis      Enables Redis mode using the provided Redis URL
-  -P, --ui-port    Enables UI mode on the given UI port
+  -P, --ui-port    Overrides the UI port (default: 6625)
 ```
 
 ## Quick start
