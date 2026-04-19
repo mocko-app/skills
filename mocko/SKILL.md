@@ -31,9 +31,7 @@ Options:
 ```hcl
 mock "GET /users/{id}" {
   status = 200
-  headers {
-    Content-Type = "application/json"
-  }
+  format = "json"
   body = <<-EOF
     {
       "id": {{request.params.id}},
@@ -52,10 +50,10 @@ mock "METHOD /path/{param}" {
   enabled = true          # optional; default true
   name    = "my-mock"     # optional; label shown in UI
   host    = "host-slug"   # optional; route to a vhost (see HCL-REFERENCE.md)
+  format  = "json"        # optional; sets Content-Type shorthand
   labels  = ["tag"]       # optional; for filtering when running with Mocko UI
 
   headers {
-    Content-Type = "application/json"
     X-Custom     = "value"
   }
 
@@ -65,6 +63,8 @@ mock "METHOD /path/{param}" {
 
 Methods: `GET`, `POST`, `PUT`, `DELETE`, `PATCH`, `*` (any).  
 Paths: use `{param}` for path parameters (e.g. `/users/{id}`).
+
+Prefer `format` over manually setting `Content-Type` for supported formats: `json`, `html`, `text`, `xml`, `javascript`, and `css`. If a user writes a supported `Content-Type` header such as `application/json`, suggest the equivalent `format` field. Do not combine `format` with an explicit `Content-Type` header.
 
 ## Template context
 
@@ -162,7 +162,7 @@ Flag keys with `:` separators appear as nested folders in the Mocko UI.
 
 ```hcl
 mock "PUT /users/{id}" {
-  headers { Content-Type = "application/json" }
+  format = "json"
   body = <<-EOF
     {{= $nameKey (append 'users:' request.params.id ':name')}}
     {{= $emailKey (append 'users:' request.params.id ':email')}}
@@ -177,7 +177,7 @@ mock "PUT /users/{id}" {
 }
 
 mock "GET /users/{id}" {
-  headers { Content-Type = "application/json" }
+  format = "json"
   body = <<-EOF
     {{= $nameKey (append 'users:' request.params.id ':name')}}
     {{= $emailKey (append 'users:' request.params.id ':email')}}
@@ -193,7 +193,7 @@ mock "GET /users/{id}" {
 **Paginated list:**
 ```hcl
 mock "GET /items" {
-  headers { Content-Type = "application/json" }
+  format = "json"
   body = <<-EOF
     {{= $page  (toInt (default request.query.page 1))}}
     {{= $size  (toInt (default request.query.size 10))}}
@@ -250,7 +250,7 @@ data "products" {
 }
 
 mock "GET /products" {
-  headers { Content-Type = "application/json" }
+  format = "json"
   body = <<-EOF
     [
       {{#forEach data.products.product}}
@@ -261,7 +261,7 @@ mock "GET /products" {
 }
 
 mock "GET /products/{id}" {
-  headers { Content-Type = "application/json" }
+  format = "json"
   body = <<-EOF
     {{= $id request.params.id}}
     {{= $found false}}

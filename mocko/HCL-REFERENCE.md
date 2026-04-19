@@ -7,11 +7,36 @@
 | `status` | number | 200–599 | 201 (POST), 200 (others) | HTTP response status |
 | `delay` | number | 0–300000 ms | none | Artificial delay before responding (applies to proxied responses too) |
 | `body` | string | — | `""` | Response body; Bigodon template |
+| `format` | string | json, html, text, xml, javascript, css | none | Sets Content-Type header shorthand. Cannot be combined with an explicit Content-Type header. |
 | `headers` | block | key = "value" | `{}` | Response headers |
 | `name` | string | — | file path | Label shown in UI |
 | `enabled` | boolean | — | `true` | Disable without deleting |
 | `host` | string | valid slug | none | Route to a named vhost |
 | `labels` | array of strings | — | `[]` | Tags for filtering in UI |
+
+## Format shorthand
+
+Use `format` instead of setting `Content-Type` manually for supported response types:
+
+```hcl
+mock "GET /users" {
+  format = "json"
+  body = <<-EOF
+    [{ "id": 1 }]
+  EOF
+}
+```
+
+| format | Content-Type |
+|--------|--------------|
+| `json` | `application/json` |
+| `html` | `text/html` |
+| `text` | `text/plain` |
+| `xml` | `application/xml` |
+| `javascript` | `text/javascript` |
+| `css` | `text/css` |
+
+`format` cannot be combined with a `Content-Type` header.
 
 ## Multi-line body (heredoc)
 

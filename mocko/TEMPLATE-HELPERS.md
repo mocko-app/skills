@@ -55,7 +55,7 @@ Build keys dynamically with `append` and store them in a variable so the key is 
 
 ```hcl
 mock "PUT /users/{id}" {
-  headers { Content-Type = "application/json" }
+  format = "json"
   body = <<-EOF
     {{= $nameKey  (append 'users:' request.params.id ':name')}}
     {{= $emailKey (append 'users:' request.params.id ':email')}}
@@ -70,7 +70,7 @@ mock "PUT /users/{id}" {
 }
 
 mock "GET /users/{id}" {
-  headers { Content-Type = "application/json" }
+  format = "json"
   body = <<-EOF
     {{= $nameKey  (append 'users:' request.params.id ':name')}}
     {{= $emailKey (append 'users:' request.params.id ':email')}}
