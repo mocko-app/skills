@@ -7,6 +7,8 @@ description: Write and review Mocko mock HCL files for the dynamic HTTP mocking 
 
 Mocko is a dynamic HTTP mocking tool. Mocks are defined in `.hcl` files and response bodies support [Bigodon](BIGODON.md) templating.
 
+Mocko also has a TypeScript SDK (`@mocko/sdk`) for automated tests that need to read and write Mocko flags through mocko-core. Use [SDK.md](SDK.md) when a user asks about SDK setup, `MockoClient`, typed flag definitions, SDK auth, or test-side flag state.
+
 ## CLI
 
 ```
@@ -312,6 +314,7 @@ See [BIGODON.md](BIGODON.md) for the full Bigodon syntax reference.
 - [TEMPLATE-HELPERS.md](TEMPLATE-HELPERS.md) — Mocko-specific helpers (setStatus, proxy, flags, etc.)
 - [BIGODON.md](BIGODON.md) — full Bigodon syntax and built-in helpers
 - [BIGODON-HELPERS.md](BIGODON-HELPERS.md) — all built-in helpers by category
+- [SDK.md](SDK.md) — TypeScript SDK setup, raw flags, typed flag definitions, TTL, and auth
 
 ## Gotchas
 
